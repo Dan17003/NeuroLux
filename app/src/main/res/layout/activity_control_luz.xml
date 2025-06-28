@@ -1,130 +1,214 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    tools:context=".ControlLuzActivity">
+    android:fillViewport="true">
 
-    <!-- Fila superior: Título y Botón de Ajustes -->
-    <TextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/controlCard"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Cambiar colores"
-        android:textColor="@android:color/black"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@id/btnSettings"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnSettings" />
+        android:layout_margin="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp">
 
-    <ImageView
-        android:id="@+id/btnSettings"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:contentDescription="Configuración"
-        android:focusable="true"
-        android:padding="4dp"
-        android:src="@drawable/ic_settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="#6A5ACD" />
-
-    <!-- Rueda de colores: Anclada al título -->
-    <ImageView
-        android:id="@+id/colorWheel"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="60dp"
-        android:layout_marginTop="32dp"
-        android:src="@drawable/ic_color_wheel"
-        app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-    <!-- Grupo Intensidad: Centrado perfectamente entre la rueda y el botón On/Off -->
-    <TextView
-        android:id="@+id/tvIntensidad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Intensidad"
-        android:textColor="#000000"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/seekBarContainer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/colorWheel"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <LinearLayout
-        android:id="@+id/seekBarContainer"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btnOnOff"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvIntensidad">
-
-        <SeekBar
-            android:id="@+id/seekBar1"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:progress="1" />
+            android:padding="24dp">
 
-        <TextView
-            android:id="@+id/tvPercentage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:minWidth="40dp"
-            android:text="1%"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="16sp" />
-    </LinearLayout>
+            <!-- Título del panel -->
+            <TextView
+                android:id="@+id/tvPanelTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cambiar color"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Botón On/Off: Anclado a la parte inferior de la pantalla -->
-    <LinearLayout
-        android:id="@+id/btnOnOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+            <!-- Paleta de Colores -->
+            <androidx.constraintlayout.helper.widget.Flow
+                android:id="@+id/colorPaletteFlow"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                app:constraint_referenced_ids="colorRed,colorGreen,colorBlue,colorMagenta,colorCyan,colorOrange"
+                app:flow_horizontalGap="16dp"
+                app:flow_maxElementsWrap="3"
+                app:flow_verticalGap="16dp"
+                app:flow_wrapMode="chain"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvPanelTitle" />
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/ic_powerbutton" />
+            <!-- Botones de color (grandes) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/colorRed"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardBackgroundColor="#FF4D4D"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="4dp">
+                <ImageView
+                    android:id="@+id/checkRed"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_checkmark"
+                    app:tint="@color/white"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="On / Off"
-            android:textColor="#6A5ACD"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/colorGreen"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardBackgroundColor="#66CC66"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="4dp">
+                <ImageView
+                    android:id="@+id/checkGreen"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_checkmark"
+                    app:tint="@color/white"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/colorBlue"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardBackgroundColor="#3399FF"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="4dp">
+                <ImageView
+                    android:id="@+id/checkBlue"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_checkmark"
+                    app:tint="@color/white"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/colorMagenta"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardBackgroundColor="#FF66FF"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="4dp">
+                <ImageView
+                    android:id="@+id/checkMagenta"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_checkmark"
+                    app:tint="@color/white"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/colorCyan"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardBackgroundColor="#66FFFF"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="4dp">
+                <ImageView
+                    android:id="@+id/checkCyan"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_checkmark"
+                    app:tint="@color/black"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/colorOrange"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                app:cardBackgroundColor="#FF9933"
+                app:cardCornerRadius="36dp"
+                app:cardElevation="4dp">
+                <ImageView
+                    android:id="@+id/checkOrange"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_checkmark"
+                    app:tint="@color/white"
+                    android:visibility="gone"/>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Sección de Intensidad -->
+            <TextView
+                android:id="@+id/tvIntensidad"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Intensidad"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/colorPaletteFlow" />
+
+            <TextView
+                android:id="@+id/tvPercentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/brand_purple"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/tvIntensidad"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvIntensidad"
+                tools:text="50%" />
+
+            <SeekBar
+                android:id="@+id/seekBarIntensity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:max="255"
+                android:progress="128"
+                android:progressTint="@color/brand_purple"
+                android:thumbTint="@color/brand_purple"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvIntensidad" />
+
+            <!-- Sección On/Off con Switch -->
+            <TextView
+                android:id="@+id/tvPowerLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Encendido"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/seekBarIntensity" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switchPower"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                app:layout_constraintBottom_toBottomOf="@id/tvPowerLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tvPowerLabel" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.core.widget.NestedScrollView>

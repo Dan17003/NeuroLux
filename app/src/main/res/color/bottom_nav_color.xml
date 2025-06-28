@@ -1,0 +1,5 @@
+<!-- res/color/bottom_nav_color.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:color="@color/brand_purple" />
+    <item android:state_checked="false" android:color="@android:color/darker_gray" />
+</selector>
